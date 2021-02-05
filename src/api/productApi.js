@@ -1,27 +1,26 @@
-import { AddBoxOutlined } from "@material-ui/icons";
 import axiosClient from "./axiosClient";
 
-const categoryApi = {
+const productApi = {
     getAll(params){
-        const url = '/categories';
+        const url = '/products';
         return axiosClient.get(url, { params })
     },
     get(id){
-        const url = `/categories/${id}`;
+        const url = `/products/${id}`;
         return axiosClient.get(url);
     },
     add(data){
-        const url = '/categories';
+        const url = '/products';
         return axiosClient.post(url, data );
     },
     update(data){
-        const url = `/categories/${data.id}`;
+        const url = `/products/${data.id}`;
         return axiosClient.patch(url, data);
     },
     remove(id){
-        const url = `/categories/${id}`;
+        const url = `/products/${id}`;
         return axiosClient.delete(url);
     }
 }
 
-export default categoryApi;
+export default productApi;
