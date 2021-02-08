@@ -10,6 +10,7 @@ import Counter from './features/Counter';
 import Header from './components/Header';
 import { Button } from '@material-ui/core';
 import { useSnackbar } from 'notistack';
+import ProductFeature from './features/Product';
 
 function App() {
   useEffect(()=> {
@@ -27,7 +28,6 @@ function App() {
   return (
     <div className="App">
       <Header />
-      HomePage
       
       <Switch>
         <Redirect from="/home" to="/" exact />
@@ -36,6 +36,7 @@ function App() {
         <Route path="/" exact component={Counter} />
         <Route path="/todos" component={Todo} />
         <Route path="/albums" component={Albums} />
+        <Route path="/products" component={ProductFeature} />
         {/* <Route component={NotFound} /> */}
       </Switch>
       Footer
