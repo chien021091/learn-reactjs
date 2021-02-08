@@ -1,3 +1,4 @@
+import { Box, IconButton } from '@material-ui/core';
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -7,9 +8,11 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import { makeStyles } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
+import { Close } from '@material-ui/icons';
 import CodeIcon from '@material-ui/icons/Code';
 import React, { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import Login from '../../features/Auth/components/Login';
 import Register from '../../features/Auth/components/Register';
 
 const useStyles = makeStyles((theme) => ({
@@ -26,10 +29,23 @@ const useStyles = makeStyles((theme) => ({
     texttDecoration: 'none',
     color: '#fff',
   },
+  closeButton: {
+    position: 'absolute',
+    top: theme.spacing(1),
+    right: theme.spacing(1),
+    color: theme.palette.grey[500],
+    zIndex: 1,
+  },
 }));
+
+const MODE = {
+  LOGIN: 'login',
+  REGISTER: 'resgister',
+};
 
 export default function Header() {
   const [open, setOpen] = useState(false);
+  const [mode, setMode] = useState(MODE.LOGIN);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -72,16 +88,33 @@ export default function Header() {
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >
+        <IconButton className={classes.closeButton} onClick={handleClose}>
+          <Close />
+        </IconButton>
         <DialogContent>
           <DialogContentText>
-            <Register />
+            {mode === MODE.REGISTER && (
+              <>
+                <Register closeDialog={handleClose} />
+                <Box>
+                  <Button color="primary" onClick={() => setMode(MODE.LOGIN)}>
+                    Already have an account. Login here .
+                  </Button>
+                </Box>
+              </>
+            )}
+            {mode === MODE.LOGIN && (
+              <>
+                <Login closeDialog={handleClose} />
+                <Box textAlign="center">
+                  <Button color="primary" onClick={() => setMode(MODE.REGISTER)}>
+                    Dont have an account. Register here .
+                  </Button>
+                </Box>
+              </>
+            )}
           </DialogContentText>
         </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            Cancel
-          </Button>
-        </DialogActions>
       </Dialog>
     </div>
   );

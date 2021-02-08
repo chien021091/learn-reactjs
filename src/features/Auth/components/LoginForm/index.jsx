@@ -31,31 +31,24 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-RegisterForm.propTypes = {
+LoginForm.propTypes = {
   onSubmit: PropTypes.func,
 };
 
-function RegisterForm(props) {
+function LoginForm(props) {
   const { onSubmit } = props;
   const classes = useStyles();
 
   //them schema validation bat buoc
   const schema = yup.object().shape({
-    fullName: yup.string().required('Please enter full Name')
-    .test('should has at least two words', "Please enter at least two words", (value) => {
-      return value.split(' ').length >= 2;
-    }),
-    email : yup.string().required('Please enter email').email('Please enter an valid adresse'),
-    password : yup.string().required('Please enter password').min(6, 'Please enter at least 6 character'),
-    retypePassword : yup.string().required('Please retype password').oneOf([yup.ref('password')], 'Password does not match'),
+    identifier : yup.string().required('Please enter email').email('Please enter an valid adresse'),
+    password : yup.string().required('Please enter password'),
   });
 
   const form = useForm({
     defaultValues: {
-      title: '',
       email: '',
       password: '',
-      retypePassword: '',
     },
     resolver: yupResolver(schema), //validation o day
   });
@@ -74,20 +67,18 @@ function RegisterForm(props) {
         <LockOutlined />
       </Avatar>
       <Typography className={classes.title} component="h3" variant="h5">
-        Create An Account
+        Sign In
       </Typography>
       <form onSubmit={form.handleSubmit(handleSubmit)}>
-        <InputField name="fullName" label="Full Name" form={form} />
-        <InputField name="email" label="Email" form={form} />
+        <InputField name="identifier" label="Identifier" form={form} />
         <PasswordField name="password" label="Password" form={form} />
-        <PasswordField name="retypePassword" label="Retype Password" form={form} />
 
         <Button disabled={isSubmitting} type="submit" className={classes.submit} variant='contained' color='primary' fullWidth size="large">
-          Create An Account
+          SignIn
         </Button>
       </form>
     </div>
   );
 }
 
-export default RegisterForm;
+export default LoginForm;
