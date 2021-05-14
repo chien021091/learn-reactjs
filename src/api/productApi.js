@@ -3,7 +3,6 @@ import axiosClient from "./axiosClient";
 const productApi = {
     async getAll(params){
         const url = '/products';
-        /* return axiosClient.get(url, { params }); */
 
         const newParams = {...params};
         newParams._start = !params._page || params._page <= 1 
@@ -12,8 +11,8 @@ const productApi = {
 
         delete newParams._page;
 
-        const productList   = await axiosClient.get(url, {params : newParams});
-        const count         = await axiosClient.get(`${url}/count`, {params : newParams});
+        const productList = await axiosClient.get(url, {params : newParams});
+        const count = await axiosClient.get(`${url}/count`, {params : newParams});
 
         return {
             data : productList,
@@ -22,9 +21,7 @@ const productApi = {
                 limit : params._limit,
                 total : count
             }
-        }
-
-        
+        }       
     },
     get(id){
         const url = `/products/${id}`;
