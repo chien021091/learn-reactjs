@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import categoryApi from '../../../../api/categoryApi';
 import ListCategory from './ListCategory';
 import ListCategorySkeleton from './ListCategorySkeleton';
 
 FilterByCategory.propTypes = {
-    onChange : PropTypes.func,
+    onChange: PropTypes.func
 };
 
 function FilterByCategory({onChange}) {
@@ -17,7 +17,7 @@ function FilterByCategory({onChange}) {
         (async () => {
             try {
                 const list = await categoryApi.getAll();
-                setCategoryList(list.map(cat => ({id : cat.id, name : cat.name})));
+                setCategoryList(list.map(cat => ({id: cat.id, name: cat.name})));
             } catch (error) {
                 console.log('Failed to fetch category List ', error);
             } finally {
@@ -26,15 +26,11 @@ function FilterByCategory({onChange}) {
         })();
     }, []);
 
-    
-    return (
-        <div>
-            {
-                loading ? <ListCategorySkeleton length={6} /> : <ListCategory categoryList={categoryList} onChange={onChange} />
-            }
-        </div>
-        
-    );
+
+    return (<div> {
+        loading ? <ListCategorySkeleton length={6}/> : <ListCategory categoryList={categoryList}
+            onChange={onChange}/>
+    } </div>);
 }
 
 export default FilterByCategory;
