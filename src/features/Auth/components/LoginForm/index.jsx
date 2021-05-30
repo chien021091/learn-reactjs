@@ -47,7 +47,7 @@ function LoginForm(props) {
 
   const form = useForm({
     defaultValues: {
-      email: '',
+      identifier: '',
       password: '',
     },
     resolver: yupResolver(schema), //validation o day

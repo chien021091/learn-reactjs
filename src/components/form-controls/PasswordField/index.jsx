@@ -20,7 +20,7 @@ PasswordField.propTypes = {
 
 function PasswordField(props) {
   const { form, name, label, disabled } = props;
-  const { errors } = form;
+  const { formState: { errors } } = form;
   const hasError = !!errors[name];
 
   const [showPassword, setShowPassword] = useState(false);
@@ -35,18 +35,25 @@ function PasswordField(props) {
       <Controller
         name={name}
         control={form.control}
-        as={OutlinedInput} //tuong ung voi thanh phan nao trong material ui
-        id={name}
-        type={showPassword ? 'text' : 'password'}
-        label={label}
-        endAdornment={
-          <InputAdornment position="end">
-            <IconButton aria-label="toggle password visibility" onClick={handleClickShowPassword} edge="end">
-              {showPassword ? <Visibility /> : <VisibilityOff />}
-            </IconButton>
-          </InputAdornment>
-        }
-        disabled={disabled}
+
+        render={({ onChange, onBlur, value, name, ref }) => (
+          <OutlinedInput 
+            id={name}
+            type={showPassword ? 'text' : 'password'}
+            label={label}
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton aria-label="toggle password visibility" onClick={handleClickShowPassword} edge="end">
+                  {showPassword ? <Visibility /> : <VisibilityOff />}
+                </IconButton>
+              </InputAdornment>
+            }
+            disabled={disabled}
+            onChange={onChange}
+            onBlur={onBlur}
+            value={value}
+          />
+        )}
       />
       <FormHelperText error={hasError} id="component-helper-text">{errors[name]?.message}</FormHelperText>
     </FormControl>
