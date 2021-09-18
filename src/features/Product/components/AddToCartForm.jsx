@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
-import InputField from '../../../components/form-controls/InputField';
+import QuantityField from '../../../components/form-controls/QuantityField';
 
 AddToCartForm.propTypes = {
   onSubmit: PropTypes.func,
@@ -33,10 +33,10 @@ function AddToCartForm({ onSubmit = null }) {
 
   return (
     <form onSubmit={form.handleSubmit(handleSubmit)}>
-      <InputField name="quantity" label="Quantity" form={form} />
+      <QuantityField name="quantity" label="Quantity" form={form} />
 
       <Button type="submit" variant="contained" color="primary" style={{ width: '250px' }} size="large">
-        Add to cart
+        Add to Card
       </Button>
     </form>
   );

@@ -1,16 +1,13 @@
-import logo from './logo.svg';
-import './App.css';
-import { Link, NavLink, Redirect, Route, Switch } from 'react-router-dom';
-import Todo from './features/Todo';
-import Albums from './features/Albums';
-import NotFound from './components/NotFound';
 import { useEffect } from 'react';
+import { Redirect, Route, Switch } from 'react-router-dom';
 import productApi from './api/productApi';
-import Counter from './features/Counter';
+import './App.css';
 import Header from './components/Header';
-import { Button } from '@material-ui/core';
-import { useSnackbar } from 'notistack';
+import Albums from './features/Albums';
+import CartFeature from './features/Cart';
+import Counter from './features/Counter';
 import ProductFeature from './features/Product';
+import Todo from './features/Todo';
 
 function App() {
   useEffect(()=> {
@@ -37,6 +34,7 @@ function App() {
         <Route path="/todos" component={Todo} />
         <Route path="/albums" component={Albums} />
         <Route path="/products" component={ProductFeature} />
+        <Route path="/cart" component={CartFeature} />
         {/* <Route component={NotFound} /> */}
       </Switch>
       Footer
